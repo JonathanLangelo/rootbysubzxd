@@ -13,8 +13,11 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cyberfolio | Professional Security Researcher",
-  description: "Portfolio and Blog for CTF/HTB/THM Writeups",
+  title: {
+    default: "SubzXD | Portfolio",
+    template: "%s | SubzXD",
+  },
+  description: "Cybersecurity portfolio, writeups, and tools by SubzXD.",
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -27,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-cyber-black text-foreground transition-colors duration-300`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased overflow-x-hidden bg-cyber-black text-foreground transition-colors duration-300`}
       >
         <ThemeProvider
           attribute="class"

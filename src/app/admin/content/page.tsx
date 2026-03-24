@@ -1,8 +1,6 @@
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import {
     Edit,
@@ -85,24 +83,20 @@ export default async function AdminContentList({
     };
 
     return (
-        <main className="min-h-screen bg-cyber-black">
-            <Navbar />
-
-            <div className="pt-32 pb-20 container mx-auto px-4 max-w-6xl">
-
-                {/* ── Header row ── */}
-                <div className="flex items-center gap-4 mb-8">
+        <div className="w-full flex-col font-mono selection:bg-cyber-blue selection:text-black mt-6 md:mt-0">
+            {/* Header / Actions */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                     <Link
                         href="/admin/dashboard"
-                        className="flex items-center gap-1.5 text-cyber-blue font-mono text-xs hover:opacity-70 transition-opacity shrink-0"
+                        className="flex w-full md:w-auto justify-center items-center gap-1.5 px-4 py-2 border border-cyber-gray text-cyber-blue font-mono text-xs hover:opacity-70 transition-opacity shrink-0"
                     >
                         <ChevronLeft className="w-4 h-4" />
                         DASHBOARD
                     </Link>
-                    <div className="h-px flex-grow bg-cyber-gray/40" />
+                    <div className="hidden md:block h-px flex-grow bg-cyber-gray/40" />
                     <Link
                         href="/admin/content/new"
-                        className="flex items-center gap-2 px-5 py-2 bg-cyber-blue text-black font-mono text-sm font-bold hover:opacity-90 transition-all shrink-0"
+                        className="flex w-full md:w-auto justify-center items-center gap-2 px-5 py-2 bg-cyber-blue text-black font-mono text-sm font-bold hover:opacity-90 transition-all shrink-0"
                     >
                         <Plus className="w-4 h-4" />
                         NEW_POST
@@ -140,7 +134,7 @@ export default async function AdminContentList({
                             <Link
                                 key={t}
                                 href={buildHref({ type: t })}
-                                className={`px-2.5 py-1 font-mono text-[10px] border transition-all ${type === t ? "bg-cyber-blue/10 border-cyber-blue text-cyber-blue" : "border-cyber-gray/30 text-gray-600 hover:border-cyber-gray hover:text-gray-400"}`}
+                                className={`px-2.5 py-1 font-mono text-xs border transition-all ${type === t ? "bg-cyber-blue/10 border-cyber-blue text-cyber-blue" : "border-cyber-gray/30 text-gray-600 hover:border-cyber-gray hover:text-gray-400"}`}
                             >
                                 {t}
                             </Link>
@@ -153,7 +147,7 @@ export default async function AdminContentList({
                             <Link
                                 key={s}
                                 href={buildHref({ status: status === s ? "" : s })}
-                                className={`px-2.5 py-1 font-mono text-[10px] border transition-all ${status === s
+                                className={`px-2.5 py-1 font-mono text-xs border transition-all ${status === s
                                     ? s === "PUBLISHED"
                                         ? "bg-cyber-green/10 border-cyber-green text-cyber-green"
                                         : s === "LOCKED"
@@ -238,9 +232,6 @@ export default async function AdminContentList({
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <Footer />
-        </main>
+        </div>
     );
 }

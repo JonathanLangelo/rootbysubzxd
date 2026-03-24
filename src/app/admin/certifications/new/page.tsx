@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function NewCertification() {
     const router = useRouter();
@@ -95,16 +93,13 @@ export default function NewCertification() {
     };
 
     return (
-        <main className="min-h-screen bg-cyber-black flex flex-col">
-            <Navbar />
-
-            <div className="flex-grow pt-32 pb-20 container mx-auto px-4 max-w-3xl">
-                <div className="mb-8 border-b border-cyber-gray pb-6 flex justify-between items-center">
+        <div className="w-full flex-col font-mono selection:bg-cyber-blue selection:text-black mt-6 md:mt-0 max-w-3xl mx-auto">
+            <div className="mb-8 border-b border-cyber-gray pb-6 flex justify-between items-center">
                     <div>
                         <h1 className="font-mono text-2xl font-bold text-white uppercase tracking-tighter">
                             ADD_CERTIFICATION
                         </h1>
-                        <p className="text-cyber-blue font-mono text-[10px] uppercase tracking-tighter mt-1 opacity-70">
+                        <p className="text-cyber-blue font-mono text-xs uppercase tracking-tighter mt-1 opacity-70">
                             {"> "} NEW_LEARNING_ACHIEVEMENT
                         </p>
                     </div>
@@ -119,7 +114,7 @@ export default function NewCertification() {
                 <form onSubmit={handleSubmit} className="space-y-6 bg-cyber-black/40 border border-cyber-gray p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-mono text-cyber-blue uppercase">TITLE *</label>
+                            <label className="block text-xs font-mono text-cyber-blue uppercase">TITLE *</label>
                             <input
                                 type="text"
                                 required
@@ -131,7 +126,7 @@ export default function NewCertification() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-mono text-cyber-blue uppercase">ISSUER *</label>
+                            <label className="block text-xs font-mono text-cyber-blue uppercase">ISSUER *</label>
                             <input
                                 type="text"
                                 required
@@ -145,7 +140,7 @@ export default function NewCertification() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-mono text-cyber-blue uppercase">DATE *</label>
+                            <label className="block text-xs font-mono text-cyber-blue uppercase">DATE *</label>
                             <input
                                 type="date"
                                 required
@@ -156,7 +151,7 @@ export default function NewCertification() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-mono text-cyber-blue uppercase">VERIFICATION URL (Optional)</label>
+                            <label className="block text-xs font-mono text-cyber-blue uppercase">VERIFICATION URL (Optional)</label>
                             <input
                                 type="url"
                                 value={verificationUrl}
@@ -168,7 +163,7 @@ export default function NewCertification() {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="block text-[10px] font-mono text-cyber-blue uppercase">DESCRIPTION (Optional)</label>
+                        <label className="block text-xs font-mono text-cyber-blue uppercase">DESCRIPTION (Optional)</label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -180,7 +175,7 @@ export default function NewCertification() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-mono text-cyber-blue uppercase">CERTIFICATE FILE (Optional PDF/PNG/JPG)</label>
+                            <label className="block text-xs font-mono text-cyber-blue uppercase">CERTIFICATE FILE (Optional PDF/PNG/JPG)</label>
                             <input
                                 type="file"
                                 accept=".pdf,image/png,image/jpeg,image/webp"
@@ -197,7 +192,7 @@ export default function NewCertification() {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-mono text-cyber-blue uppercase">THUMBNAIL (Auto-generated if image)</label>
+                            <label className="block text-xs font-mono text-cyber-blue uppercase">THUMBNAIL (Auto-generated if image)</label>
                             <input
                                 type="file"
                                 accept="image/png,image/jpeg,image/webp"
@@ -224,7 +219,5 @@ export default function NewCertification() {
                     </div>
                 </form>
             </div>
-            <Footer />
-        </main>
     );
 }

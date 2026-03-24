@@ -23,26 +23,32 @@ export default function About() {
                         <span className="text-cyber-green mr-2">{">"}</span>WHO_AM_I
                     </h2>
 
-                    <div className="bg-cyber-black border border-cyber-green/30 p-8 relative group">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-cyber-black border border-cyber-green/30 p-6 sm:p-8 relative group">
                         {/* Decorative corner */}
                         <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyber-green opacity-40"></div>
                         <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyber-green opacity-40"></div>
 
-                        <p className="font-mono text-muted-foreground leading-relaxed mb-8">
-                            I am Jonathan Immanuel Mazar Langelo, also known as SubzXD. I am a cybersecurity enthusiast with a strong
-                            interest in learning and exploring system security. I enjoy solving CTF challenges, working on HackTheBox
-                            machines, and continuously improving my skills through hands-on practice.
-                        </p>
+                        <div className="text-left">
+                            <h3 className="text-cyber-green font-mono text-sm mb-4 uppercase tracking-widest">{">"} SYSTEM_PROFILE</h3>
+                            <p className="font-sans text-gray-300 leading-relaxed text-sm sm:text-base selection:bg-cyber-blue/30 selection:text-white">
+                                I am Jonathan Immanuel Mazar Langelo, also known as SubzXD. I am a cybersecurity enthusiast with a strong
+                                interest in learning and exploring system security. I enjoy solving CTF challenges, working on HackTheBox
+                                machines, and continuously improving my skills through hands-on practice.
+                            </p>
+                        </div>
 
-                        <div className="flex flex-wrap justify-center gap-3">
-                            {skills.map((skill) => (
-                                <span
-                                    key={skill}
-                                    className="px-3 py-1 text-xs font-mono bg-cyber-green/10 text-cyber-green border border-cyber-green/30 rounded-sm"
-                                >
-                                    {skill}
-                                </span>
-                            ))}
+                        <div className="flex flex-col space-y-4">
+                            <h3 className="text-cyber-green font-mono text-sm uppercase tracking-widest text-left md:text-right">{">"} ACTIVE_MODULES</h3>
+                            <div className="flex flex-wrap justify-start md:justify-end gap-2 sm:gap-3">
+                                {skills.map((skill) => (
+                                    <span
+                                        key={skill}
+                                        className="px-2.5 sm:px-3 py-1 text-[10px] sm:text-xs font-mono bg-cyber-green/5 text-cyber-green border border-cyber-green/30 hover:bg-cyber-green/20 hover:border-cyber-green transition-all"
+                                    >
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Glow effect */}

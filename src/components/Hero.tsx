@@ -56,25 +56,27 @@ export default function Hero() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.5 }}
                     >
-                        <h1 className="font-mono text-3xl md:text-5xl lg:text-7xl font-bold text-white mb-6 tracking-tighter uppercase leading-[0.9] flex flex-col">
+                        <h1 className="font-mono text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tighter uppercase leading-[1.1] sm:leading-[0.9] flex flex-col">
                             <span>Jonathan Immanuel</span>
                             <span className="text-cyber-green glow-green">Mazar Langelo</span>
                         </h1>
 
-                        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-8">
-                            <span className="px-3 py-1 bg-cyber-blue/10 border border-cyber-blue text-cyber-blue font-mono text-xs uppercase tracking-widest whitespace-nowrap">
+                        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-8">
+                            <span className="px-3 py-1 bg-cyber-blue/10 border border-cyber-blue text-cyber-blue font-mono text-xs uppercase tracking-widest whitespace-nowrap w-full sm:w-auto text-center">
                                 [ ALIAS: SubzXD ]
                             </span>
-                            <div className="h-px w-12 bg-cyber-gray hidden md:block"></div>
-                            <p className="text-gray-400 font-sans text-lg md:text-xl leading-relaxed">
+                            <div className="h-px w-12 bg-cyber-gray hidden sm:block"></div>
+                            <p className="text-gray-400 font-sans text-sm sm:text-lg md:text-xl leading-relaxed text-center sm:text-left selection:bg-cyber-blue/30 selection:text-white">
                                 Cybersecurity Enthusiast | Exploring Systems & Exploits
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mt-12 py-4 border-t border-cyber-gray/20">
-                            <span className="font-mono text-xs text-gray-600 uppercase tracking-[0.2em] mr-2">
-                                {">"} PROFILES:
-                            </span>
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4 mt-8 sm:mt-12 py-6 border-t border-cyber-gray/20">
+                            <div className="col-span-2 md:col-span-2 lg:col-span-4 mb-2 text-center md:text-left">
+                                <span className="font-mono text-xs text-cyber-green uppercase tracking-[0.2em]">
+                                    {">"} TERMINAL_ACCESS // PROFILES:
+                                </span>
+                            </div>
                             {profiles.map((profile, i) => (
                                 <motion.a
                                     key={profile.name}
@@ -85,11 +87,10 @@ export default function Hero() {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.8 + (i * 0.1) }}
-                                    className="group flex items-center space-x-2 font-mono text-sm text-gray-500 hover:text-white transition-colors py-1 relative"
+                                    className="group flex flex-col items-center justify-center font-mono text-sm md:text-base text-gray-400 hover:text-white transition-all duration-200 p-4 md:p-5 border border-cyber-gray/20 hover:border-green-500 hover:bg-cyber-green/5 rounded-xl w-full h-full text-center"
                                 >
-                                    <profile.icon className={`w-3.5 h-3.5 ${profile.color} opacity-50 group-hover:opacity-100 transition-opacity`} />
-                                    <span>{profile.name}</span>
-                                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyber-blue group-hover:w-full transition-all duration-300"></span>
+                                    <profile.icon className={`w-6 h-6 md:w-8 md:h-8 mb-3 ${profile.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                                    <span className="whitespace-nowrap font-bold">{profile.name}</span>
                                 </motion.a>
                             ))}
                         </div>

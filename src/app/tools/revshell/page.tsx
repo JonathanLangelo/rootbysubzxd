@@ -118,7 +118,7 @@ export default function RevShellPage() {
 
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-1.5">Shell Type</label>
+                                    <label className="block text-xs text-gray-500 uppercase tracking-widest mb-1.5">Shell Type</label>
                                     <select
                                         value={shellType.name}
                                         onChange={(e) => setShellType(shellTypes.find(s => s.name === e.target.value) || shellTypes[0])}
@@ -130,9 +130,9 @@ export default function RevShellPage() {
                                     </select>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-1.5">LHOST (Your IP)</label>
+                                        <label className="block text-xs text-gray-500 uppercase tracking-widest mb-1.5">LHOST (Your IP)</label>
                                         <input
                                             type="text"
                                             value={ip}
@@ -142,7 +142,7 @@ export default function RevShellPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-[10px] text-gray-500 uppercase tracking-widest mb-1.5">LPORT</label>
+                                        <label className="block text-xs text-gray-500 uppercase tracking-widest mb-1.5">LPORT</label>
                                         <input
                                             type="text"
                                             value={port}
@@ -163,8 +163,8 @@ export default function RevShellPage() {
                         >
                             <ShieldAlert className="w-10 h-10 text-cyber-pink flex-shrink-0" />
                             <div>
-                                <h3 className="text-cyber-pink font-bold text-xs uppercase mb-1">Warning: Education Only</h3>
-                                <p className="text-[10px] text-gray-400 leading-relaxed">
+                                <h3 className="text-cyber-pink font-bold text-xs sm:text-sm uppercase mb-1">Warning: Education Only</h3>
+                                <p className="text-xs text-gray-400 leading-relaxed">
                                     This tool is designed for Capture The Flag (CTF) preparation, authorized security labs, and educational research.
                                     Unauthorized access to computer systems is illegal and unethical.
                                 </p>
@@ -186,7 +186,7 @@ export default function RevShellPage() {
                                     <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
                                     <div className="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
                                 </div>
-                                <span className="text-[9px] text-gray-500 uppercase tracking-widest">{shellType.id}.sh // TEMPLATE_STRUCTURE</span>
+                                <span className="text-xs text-gray-500 uppercase tracking-widest">{shellType.id}.sh // TEMPLATE_STRUCTURE</span>
                             </div>
 
                             <div className="p-8 flex-grow">
@@ -204,14 +204,14 @@ export default function RevShellPage() {
                                     </button>
                                 </div>
                                 {copied && (
-                                    <span className="text-[10px] text-cyber-blue mt-2 block animate-pulse">
+                                    <span className="text-xs text-cyber-blue mt-2 block animate-pulse">
                                         {">>"} COPIED_TO_CLIPBOARD
                                     </span>
                                 )}
                             </div>
 
                             <div className="p-4 border-t border-cyber-gray text-center">
-                                <p className="text-[9px] text-gray-600 uppercase">
+                                <p className="text-xs text-gray-600 uppercase">
                                     Note: This is a structured template. Ensure proper sanitization and context before use in lab environments.
                                 </p>
                             </div>
@@ -229,22 +229,22 @@ export default function RevShellPage() {
                                 <div className="p-5 border border-cyber-gray bg-cyber-gray/10">
                                     <div className="flex items-center text-cyber-blue mb-3">
                                         <Info className="w-4 h-4 mr-2" />
-                                        <h4 className="text-xs font-bold uppercase tracking-widest">How it works</h4>
+                                        <h4 className="text-sm font-bold uppercase tracking-widest">How it works</h4>
                                     </div>
-                                    <p className="text-[11px] text-gray-400 leading-relaxed font-sans">
+                                    <p className="text-sm text-gray-400 leading-relaxed font-sans mt-2">
                                         {shellType.explanation}
                                     </p>
                                 </div>
                                 <div className="p-5 border border-cyber-gray bg-cyber-gray/10">
                                     <div className="flex items-center text-cyber-pink mb-3">
                                         <ArrowRight className="w-4 h-4 mr-2" />
-                                        <h4 className="text-xs font-bold uppercase tracking-widest">Use Case & Context</h4>
+                                        <h4 className="text-sm font-bold uppercase tracking-widest">Use Case & Context</h4>
                                     </div>
-                                    <p className="text-[11px] text-gray-400 leading-relaxed font-sans">
+                                    <p className="text-sm text-gray-400 leading-relaxed font-sans mt-2">
                                         {shellType.useCase}
                                     </p>
-                                    <div className="mt-4 pt-3 border-t border-cyber-gray/50 flex items-center text-[10px] text-gray-500 italic">
-                                        <ShieldAlert className="w-3 h-3 mr-2 opacity-50" />
+                                    <div className="mt-4 pt-4 border-t border-cyber-gray/50 flex flex-col sm:flex-row items-start sm:items-center text-xs text-gray-500 italic">
+                                        <ShieldAlert className="w-4 h-4 mb-2 sm:mb-0 mr-0 sm:mr-3 opacity-50 flex-shrink-0" />
                                         {shellType.safetyNote}
                                     </div>
                                 </div>
@@ -255,25 +255,25 @@ export default function RevShellPage() {
 
                 {/* Footer Concepts */}
                 <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="flex items-center space-x-4 p-4 border border-cyber-gray/30 opacity-60 hover:opacity-100 transition-opacity">
-                        <Laptop className="w-8 h-8 text-cyber-blue" />
+                    <div className="flex items-start md:items-center space-x-4 p-4 border border-cyber-gray/30 opacity-60 hover:opacity-100 transition-opacity">
+                        <Laptop className="w-8 h-8 text-cyber-blue flex-shrink-0 mt-1" />
                         <div>
-                            <h5 className="text-[10px] font-bold text-white uppercase">LHOST (Local Host)</h5>
-                            <p className="text-[9px] text-gray-500">The IP of the machine waiting for the connection (the attacker's machine).</p>
+                            <h5 className="text-xs sm:text-sm font-bold text-white uppercase mb-1">LHOST (Local Host)</h5>
+                            <p className="text-xs text-gray-500 leading-relaxed">The IP of the machine waiting for the connection (the attacker's machine).</p>
                         </div>
                     </div>
-                    <div className="flex items-center space-x-4 p-4 border border-cyber-gray/30 opacity-60 hover:opacity-100 transition-opacity">
-                        <Server className="w-8 h-8 text-cyber-green" />
+                    <div className="flex items-start md:items-center space-x-4 p-4 border border-cyber-gray/30 opacity-60 hover:opacity-100 transition-opacity">
+                        <Server className="w-8 h-8 text-cyber-green flex-shrink-0 mt-1" />
                         <div>
-                            <h5 className="text-[10px] font-bold text-white uppercase">RHOST (Remote Host)</h5>
-                            <p className="text-[9px] text-gray-500">The IP of the target machine initiating the contact.</p>
+                            <h5 className="text-xs sm:text-sm font-bold text-white uppercase mb-1">RHOST (Remote Host)</h5>
+                            <p className="text-xs text-gray-500 leading-relaxed">The IP of the target machine initiating the contact.</p>
                         </div>
                     </div>
-                    <div className="flex items-center space-x-4 p-4 border border-cyber-gray/30 opacity-60 hover:opacity-100 transition-opacity">
-                        <AlertTriangle className="w-8 h-8 text-cyber-pink" />
+                    <div className="flex items-start md:items-center space-x-4 p-4 border border-cyber-gray/30 opacity-60 hover:opacity-100 transition-opacity">
+                        <AlertTriangle className="w-8 h-8 text-cyber-pink flex-shrink-0 mt-1" />
                         <div>
-                            <h5 className="text-[10px] font-bold text-white uppercase">Persistence</h5>
-                            <p className="text-[9px] text-gray-500">Shells are usually transient. Understanding how they stay open is key to learning.</p>
+                            <h5 className="text-xs sm:text-sm font-bold text-white uppercase mb-1">Persistence</h5>
+                            <p className="text-xs text-gray-500 leading-relaxed">Shells are usually transient. Understanding how they stay open is key to learning.</p>
                         </div>
                     </div>
                 </div>

@@ -22,8 +22,8 @@ export default function ContactPage() {
                         <Mail className="w-10 h-10 text-cyber-pink mb-4 group-hover:glow-pink" />
                         <h3 className="font-mono text-lg font-bold text-white mb-2 underline decoration-cyber-pink/30">SECURE_EMAIL</h3>
                         <p className="text-gray-500 font-mono text-xs mb-4">PGP_KEY: 0x1337BEEF</p>
-                        <a href="mailto:admin@cyberfolio.node" className="text-cyber-pink font-mono text-sm hover:underline">
-                            admin@cyberfolio.node
+                        <a href="mailto:admin@subzxd.node" className="text-cyber-pink font-mono text-sm hover:underline">
+                            admin@subzxd.node
                         </a>
                     </div>
 

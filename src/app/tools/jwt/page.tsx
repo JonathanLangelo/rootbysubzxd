@@ -131,24 +131,24 @@ export default function JwtDebuggerPage() {
                         />
 
                         {error && (
-                            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 text-red-500 text-[10px] uppercase flex items-center">
+                            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 text-red-500 text-xs sm:text-sm uppercase flex items-center">
                                 <AlertTriangle className="w-4 h-4 mr-2 flex-shrink-0" />
                                 {error}
                             </div>
                         )}
 
                         {!error && token && (
-                            <div className="mt-4 p-3 bg-cyber-pink/10 border border-cyber-pink/30 text-cyber-pink text-[10px] uppercase flex items-center animate-pulse">
+                            <div className="mt-4 p-3 bg-cyber-pink/10 border border-cyber-pink/30 text-cyber-pink text-xs sm:text-sm uppercase flex items-center animate-pulse">
                                 <Eye className="w-4 h-4 mr-2 flex-shrink-0" />
                                 TOKEN_PARSED // READY_FOR_INSPECTION
                             </div>
                         )}
 
                         <div className="mt-6 p-4 border border-cyber-gray/30 bg-cyber-gray/5">
-                            <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center">
-                                <ShieldAlert className="w-3 h-3 mr-2" /> WARNING: SIGNATURE_NOT_VERIFIED
+                            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center">
+                                <ShieldAlert className="w-4 h-4 mr-2" /> WARNING: SIGNATURE_NOT_VERIFIED
                             </h3>
-                            <p className="text-[9px] text-gray-600 font-sans leading-relaxed italic">
+                            <p className="text-xs text-gray-600 font-sans leading-relaxed italic">
                                 This tool only decodes the token structure. It does not verify the signature or trust the claims.
                                 NEVER trust an unverified JWT in production systems.
                             </p>
@@ -233,7 +233,7 @@ export default function JwtDebuggerPage() {
                                 )}
                             </div>
 
-                            <div className="bg-black/50 p-2 font-mono text-[10px] break-all border border-cyber-gray/20 min-h-[40px] flex items-center text-gray-500 italic">
+                            <div className="bg-black/50 p-2 font-mono text-xs break-all border border-cyber-gray/20 min-h-[40px] flex items-center text-gray-500 italic">
                                 {signature || "// Waiting for token..."}
                             </div>
                         </motion.div>

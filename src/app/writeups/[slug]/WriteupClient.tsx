@@ -47,21 +47,23 @@ export default function WriteupClient({ id, slug, title, isProtected, content }:
 
     if (!isAuthenticated) {
         return (
-            <div className="max-w-4xl mx-auto py-12">
+            <div className="max-w-3xl mx-auto py-12 px-4">
                 <PasswordPrompt onSuccess={handlePasswordSubmit} error={error} />
             </div>
         );
     }
 
     return (
-        <article className="max-w-4xl mx-auto p-1 bg-cyber-gray/20 border border-cyber-gray">
-            <div className="bg-cyber-black p-8 md:p-12">
+        <article className="max-w-3xl mx-auto p-1 border border-cyber-gray/50 bg-cyber-gray/10">
+            <div className="bg-cyber-black p-4 md:p-8 w-full overflow-hidden">
                 {isProtected && (
-                    <div className="mb-8 p-3 border border-cyber-green/30 bg-cyber-green/5 flex items-center space-x-3">
-                        <div className="w-2 h-2 rounded-full bg-cyber-green animate-pulse"></div>
-                        <span className="font-mono text-[10px] text-cyber-green uppercase tracking-widest">
-                            SESSION_SECURED // CONTENT_DECRYPTED_SUCCESSFULLY
-                        </span>
+                    <div className="mb-8 p-3 border border-cyber-green/30 bg-cyber-green/5 flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                        <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 rounded-full bg-cyber-green animate-pulse"></div>
+                            <span className="font-mono text-xs text-cyber-green uppercase tracking-widest break-all">
+                                SESSION_SECURED // CONTENT_DECRYPTED
+                            </span>
+                        </div>
                     </div>
                 )}
 

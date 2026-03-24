@@ -275,7 +275,7 @@ export default function HashPage() {
                         />
 
                         <div className="mt-6 flex items-center justify-between">
-                            <span className="text-[10px] text-gray-700 uppercase font-mono tracking-tighter">Status: ANALYZING_STREAM</span>
+                            <span className="text-xs text-gray-700 uppercase font-mono tracking-tighter">Status: ANALYZING_STREAM</span>
                             <div className="flex space-x-1">
                                 <span className="w-1.5 h-1.5 rounded-full bg-cyber-green/50 animate-pulse"></span>
                                 <span className="w-1.5 h-1.5 rounded-full bg-cyber-green/30 animate-pulse [animation-delay:0.2s]"></span>
@@ -300,7 +300,7 @@ export default function HashPage() {
                                 <div className="flex justify-between items-center mb-2">
                                     <div className="flex items-center">
                                         <span className="text-xs font-bold text-cyber-green uppercase tracking-widest mr-4">{hash.label}</span>
-                                        <span className="text-[10px] text-gray-400 font-sans italic opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                                        <span className="text-xs text-gray-400 font-sans italic opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
                                             {hash.description}
                                         </span>
                                     </div>
@@ -321,10 +321,10 @@ export default function HashPage() {
                             </motion.div>
                         ))}
 
-                        <div className="p-4 bg-cyber-gray/5 border border-cyber-gray italic">
+                        <div className="p-4 bg-cyber-gray/5 border border-cyber-gray italic w-full">
                             <div className="flex items-start">
                                 <ShieldAlert className="w-4 h-4 text-cyber-green mr-3 mt-1 flex-shrink-0" />
-                                <div className="text-[10px] text-gray-500 font-sans leading-relaxed">
+                                <div className="text-xs text-gray-500 font-sans leading-relaxed">
                                     <span className="text-cyber-green font-bold uppercase block mb-1">Security Notice</span>
                                     All hash calculations are performed locally using the browser's Native Crypto API.
                                     For educational and CTF use only. Do not use for production password storage without salting/stretching.

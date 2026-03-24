@@ -302,7 +302,7 @@ export default function ContentEditor({
 
     // ─────────────────────────────────────────────────────────────────────────
     return (
-        <main className="min-h-screen bg-cyber-black flex flex-col">
+        <div className="w-full flex-col font-mono selection:bg-cyber-blue selection:text-black mt-0 h-auto md:h-full">
             {/* ── Top Bar ── */}
             <div className="sticky top-0 z-40 border-b border-cyber-gray bg-cyber-black/95 backdrop-blur px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -320,7 +320,7 @@ export default function ContentEditor({
                         {slug && (
                             <button
                                 onClick={copySlug}
-                                className="flex items-center gap-1 font-mono text-[10px] text-gray-600 hover:text-cyber-blue transition-colors mt-0.5"
+                                className="flex items-center gap-1 font-mono text-xs text-gray-600 hover:text-cyber-blue transition-colors mt-0.5"
                             >
                                 <Copy className="w-2.5 h-2.5" />
                                 <span>/{slug}</span>
@@ -427,12 +427,12 @@ export default function ContentEditor({
                 </div>
 
                 {/* Split Pane */}
-                <div className={`flex-grow grid ${preview ? "grid-cols-2" : "grid-cols-3"} divide-x divide-cyber-gray/30 overflow-hidden`} style={{ minHeight: "calc(100vh - 200px)" }}>
+                <div className={`flex-grow grid ${preview ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-3"} md:divide-x divide-y md:divide-y-0 divide-cyber-gray/30 overflow-hidden`} style={{ minHeight: "calc(100vh - 200px)" }}>
                     {/* Editor */}
-                    <div className={`${preview ? "col-span-1" : "col-span-2"} flex flex-col`}>
+                    <div className={`${preview ? "col-span-1" : "col-span-1 md:col-span-2"} flex flex-col min-h-[400px]`}>
                         <div className="px-3 py-1.5 bg-cyber-gray/10 border-b border-cyber-gray/30 flex items-center justify-between">
-                            <span className="font-mono text-[10px] text-gray-600 uppercase">Markdown Editor</span>
-                            <span className="font-mono text-[10px] text-gray-700">Drop images to embed</span>
+                            <span className="font-mono text-xs text-gray-600 uppercase">Markdown Editor</span>
+                            <span className="font-mono text-xs text-gray-700 hidden sm:block">Drop images to embed</span>
                         </div>
                         <textarea
                             id="content-editor"
@@ -448,9 +448,9 @@ export default function ContentEditor({
 
                     {/* Preview */}
                     {preview && (
-                        <div className="col-span-1 flex flex-col overflow-hidden">
+                        <div className="col-span-1 flex flex-col overflow-hidden min-h-[400px]">
                             <div className="px-3 py-1.5 bg-cyber-blue/5 border-b border-cyber-blue/20">
-                                <span className="font-mono text-[10px] text-cyber-blue uppercase">Live Preview</span>
+                                <span className="font-mono text-xs text-cyber-blue uppercase">Live Preview</span>
                             </div>
                             <div className="flex-grow overflow-y-auto p-5 prose prose-invert prose-base max-w-none">
                                 <h1 className="text-white font-mono text-xl md:text-2xl mb-6 uppercase tracking-tighter border-b border-cyber-blue pb-4">
@@ -514,7 +514,7 @@ export default function ContentEditor({
                             {/* ── Password (only for LOCKED) ── */}
                             {formData.status === "LOCKED" && (
                                 <div className="animate-pulse-once">
-                                    <label className="flex items-center gap-1 font-mono text-[10px] text-red-400 mb-1.5 uppercase">
+                                    <label className="flex items-center gap-1 font-mono text-xs text-red-400 mb-1.5 uppercase">
                                         <Lock className="w-3 h-3" />
                                         Access Key (Password)
                                     </label>
@@ -596,7 +596,7 @@ export default function ContentEditor({
 
                             {/* ── Thumbnail ── */}
                             <div>
-                                <label className="block font-mono text-[10px] text-gray-500 mb-1.5 uppercase tracking-wider">
+                                <label className="block font-mono text-xs text-gray-500 mb-1.5 uppercase tracking-wider">
                                     Thumbnail
                                 </label>
                                 <div className="border border-dashed border-cyber-gray/50 p-4 text-center hover:border-cyber-blue transition-all cursor-pointer relative bg-cyber-gray/5">
@@ -629,7 +629,7 @@ export default function ContentEditor({
                             {formData.type === "PROJECT" && (
                                 <>
                                     <div>
-                                        <label className="block font-mono text-[10px] text-gray-500 mb-1.5 uppercase">
+                                        <label className="block font-mono text-xs text-gray-500 mb-1.5 uppercase">
                                             GitHub URL
                                         </label>
                                         <input
@@ -641,7 +641,7 @@ export default function ContentEditor({
                                         />
                                     </div>
                                     <div>
-                                        <label className="block font-mono text-[10px] text-gray-500 mb-1.5 uppercase">
+                                        <label className="block font-mono text-xs text-gray-500 mb-1.5 uppercase">
                                             Demo URL
                                         </label>
                                         <input
@@ -689,6 +689,6 @@ export default function ContentEditor({
 
             {/* ── Toast Notification ── */}
             {toast && <Toast toast={toast} onClose={() => setToast(null)} />}
-        </main>
+        </div>
     );
 }

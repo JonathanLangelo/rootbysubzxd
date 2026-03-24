@@ -18,7 +18,7 @@ export default function CodeBlock({ html, code }: CodeBlockProps) {
     };
 
     return (
-        <div className="my-6 relative group border border-cyber-gray bg-cyber-black/50">
+        <div className="my-6 relative group border border-cyber-gray bg-cyber-black/50 rounded-xl overflow-hidden font-mono text-sm md:text-base">
             <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                     onClick={copyToClipboard}
@@ -29,7 +29,7 @@ export default function CodeBlock({ html, code }: CodeBlockProps) {
                 </button>
             </div>
             <div
-                className="p-4 overflow-x-auto"
+                className="p-4 overflow-x-auto [&>pre]:!bg-transparent [&>pre]:!p-0"
                 dangerouslySetInnerHTML={{ __html: html }}
             />
         </div>

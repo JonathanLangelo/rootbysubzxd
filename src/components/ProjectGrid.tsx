@@ -52,7 +52,7 @@ export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <Box className="w-5 h-5 text-cyber-green" />
-                                <span className="text-[8px] font-mono text-cyber-green border border-cyber-green/30 px-2 uppercase">
+                                <span className="text-[10px] md:text-xs font-mono text-cyber-green border border-cyber-green/30 px-2 uppercase">
                                     {project.type || "OTHER"}
                                 </span>
                             </div>
@@ -67,7 +67,7 @@ export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
 
                             <div className="flex flex-wrap gap-2">
                                 {project.tags?.split(",").map(tag => (
-                                    <span key={tag} className="text-[10px] font-mono text-gray-400 bg-cyber-gray/20 px-2 py-0.5">
+                                    <span key={tag} className="text-[10px] md:text-xs font-mono text-gray-400 bg-cyber-gray/20 px-2 py-0.5 mt-auto">
                                         #{tag.trim()}
                                     </span>
                                 ))}
@@ -109,7 +109,7 @@ export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
                                 <span className="text-xs font-mono text-cyber-green border border-cyber-green/30 px-4 py-1">
                                     {selectedProject.type?.toUpperCase() || "OTHER"}
                                 </span>
-                                <span className="text-[10px] font-mono text-gray-500">
+                                <span className="text-xs font-mono text-gray-500 hidden sm:block">
                                     STAMP: {new Date(selectedProject.createdAt).toLocaleDateString()}
                                 </span>
                             </div>

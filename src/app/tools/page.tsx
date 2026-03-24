@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-    title: "Tools | Coming Soon",
+    title: "Tools",
     description: "Cybersecurity toolkit and resources by SubzXD. Protocol update pending.",
 };
 

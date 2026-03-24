@@ -1,7 +1,5 @@
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Plus, FileText, LogOut, Activity, Clock, Globe } from "lucide-react";
@@ -31,10 +29,7 @@ export default async function AdminDashboard() {
     };
 
     return (
-        <main className="min-h-screen bg-cyber-black flex flex-col">
-            <Navbar />
-
-            <div className="flex-grow pt-32 pb-20 container mx-auto px-4 max-w-5xl">
+        <div className="flex flex-col container mx-auto w-full">
 
                 {/* ── Header ── */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12 border-b border-cyber-gray pb-8">
@@ -47,17 +42,17 @@ export default async function AdminDashboard() {
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex w-full md:w-auto items-center gap-3">
                         <Link
                             href="/admin/content/new"
-                            className="flex items-center gap-2 px-5 py-2 bg-cyber-blue text-black font-mono text-sm font-bold hover:opacity-90 transition-all"
+                            className="flex-1 md:flex-none justify-center flex items-center gap-2 px-3 lg:px-5 py-2 bg-cyber-blue text-black font-mono text-xs md:text-sm font-bold hover:opacity-90 transition-all"
                         >
                             <Plus className="w-4 h-4" />
                             NEW_POST
                         </Link>
                         <Link
                             href="/admin/logout"
-                            className="flex items-center gap-2 px-4 py-2 text-red-500 font-mono text-xs border border-red-500/20 hover:bg-red-500/10 transition-all"
+                            className="flex-1 md:flex-none justify-center flex items-center gap-2 px-3 lg:px-4 py-2 text-red-500 font-mono text-xs border border-red-500/20 hover:bg-red-500/10 transition-all"
                         >
                             <LogOut className="w-4 h-4" />
                             LOGOUT
@@ -88,14 +83,14 @@ export default async function AdminDashboard() {
 
                 {/* ── Content Management Card ── */}
                 <div className="border border-cyber-gray bg-cyber-black/20 p-7 hover:border-cyber-blue/40 transition-all mb-8">
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
                         <div className="flex items-center gap-4">
                             <FileText className="w-6 h-6 text-cyber-blue" />
                             <h2 className="font-mono text-xl font-bold text-white uppercase tracking-widest">CONTENT</h2>
                         </div>
                         <Link
                             href="/admin/content"
-                            className="px-5 py-1.5 border border-cyber-blue text-cyber-blue font-mono text-xs font-bold hover:bg-cyber-blue hover:text-black transition-all"
+                            className="w-full sm:w-auto text-center px-4 py-2 border border-cyber-blue text-cyber-blue font-mono text-xs md:text-sm font-bold hover:bg-cyber-blue hover:text-black transition-all"
                         >
                             [ MANAGE_ALL ]
                         </Link>
@@ -124,14 +119,14 @@ export default async function AdminDashboard() {
 
                 {/* ── Certifications Card ── */}
                 <div className="border border-cyber-gray bg-cyber-black/20 p-8 hover:border-cyber-green/40 transition-all mb-12">
-                    <div className="flex justify-between items-center mb-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                         <div className="flex items-center gap-4">
                             <Activity className="w-6 h-6 text-cyber-green" />
                             <h2 className="font-mono text-xl font-bold text-white uppercase tracking-widest">CERTIFICATIONS</h2>
                         </div>
                         <Link
                             href="/admin/certifications"
-                            className="px-6 py-2 border border-cyber-green text-cyber-green font-mono text-xs font-bold hover:bg-cyber-green hover:text-black transition-all uppercase tracking-widest"
+                            className="w-full sm:w-auto text-center px-4 py-2 border border-cyber-green text-cyber-green font-mono text-xs md:text-sm font-bold hover:bg-cyber-green hover:text-black transition-all uppercase tracking-widest"
                         >
                             [ MANAGE_CERTS ]
                         </Link>
@@ -168,8 +163,5 @@ export default async function AdminDashboard() {
                     </div>
                 )}
             </div>
-
-            <Footer />
-        </main>
     );
 }

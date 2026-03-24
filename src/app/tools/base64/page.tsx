@@ -94,22 +94,22 @@ export default function Base64Page() {
                             className="w-full h-64 bg-black border border-cyber-gray text-cyber-green p-5 focus:border-cyber-blue outline-none transition-colors scrollbar-hide font-mono text-base leading-relaxed resize-none"
                         />
 
-                        <div className="mt-6 flex flex-wrap gap-4">
+                        <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-4">
                             <button
                                 onClick={handleEncode}
-                                className="px-6 py-2 bg-cyber-blue/10 border border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-black transition-all font-bold uppercase tracking-widest text-xs"
+                                className="w-full sm:w-auto px-6 py-2 bg-cyber-blue/10 border border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-black transition-all font-bold uppercase tracking-widest text-xs"
                             >
                                 ENCODE
                             </button>
                             <button
                                 onClick={handleDecode}
-                                className="px-6 py-2 bg-cyber-pink/10 border border-cyber-pink text-cyber-pink hover:bg-cyber-pink hover:text-black transition-all font-bold uppercase tracking-widest text-xs"
+                                className="w-full sm:w-auto px-6 py-2 bg-cyber-pink/10 border border-cyber-pink text-cyber-pink hover:bg-cyber-pink hover:text-black transition-all font-bold uppercase tracking-widest text-xs"
                             >
                                 DECODE
                             </button>
                             <button
                                 onClick={handleReset}
-                                className="px-4 py-2 border border-cyber-gray text-gray-500 hover:text-white hover:border-white transition-all font-bold uppercase tracking-widest text-xs ml-auto flex items-center"
+                                className="w-full sm:w-auto px-4 py-2 border border-cyber-gray text-gray-500 hover:text-white hover:border-white transition-all font-bold uppercase tracking-widest text-xs sm:ml-auto flex justify-center items-center"
                             >
                                 <RotateCcw className="w-3 h-3 mr-2" /> RESET
                             </button>
@@ -155,11 +155,11 @@ export default function Base64Page() {
                         </div>
 
                         <div className="mt-6 flex flex-col space-y-4">
-                            <div className="flex items-center text-[10px] text-gray-500 font-mono uppercase tracking-widest bg-cyber-gray/10 p-2 border border-cyber-gray/30">
+                            <div className="flex items-center text-xs text-gray-500 font-mono uppercase tracking-widest bg-cyber-gray/10 p-2 border border-cyber-gray/30">
                                 <div className="w-1.5 h-1.5 bg-cyber-pink mr-2 animate-pulse"></div>
                                 SECURE_CLIENT_SIDE_ONLY // NO_DATA_TRANSMITTED
                             </div>
-                            <p className="text-[10px] text-gray-500 font-sans italic opacity-60">
+                            <p className="text-xs text-gray-500 font-sans italic opacity-60">
                                 For educational and CTF use only. Base64 is not encryption, it is a transformation protocol.
                             </p>
                         </div>

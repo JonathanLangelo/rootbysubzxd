@@ -25,8 +25,8 @@ export async function generateMetadata({
     }
 
     return {
-        title: `${writeup.title} | SubzXD`,
-        description: writeup.description || `Writeup: ${writeup.title}`,
+        title: writeup.title,
+        description: writeup.description || `Writeup by SubzXD`,
     };
 }
 
@@ -62,15 +62,15 @@ export default async function WriteupPage({
 
             <div className="pt-32 pb-20 container mx-auto px-4">
                 {/* Header Metadata */}
-                <div className="max-w-4xl mx-auto mb-12">
-                    <div className="flex flex-wrap items-center gap-6 mb-8 border-l-2 border-cyber-blue pl-6 py-2">
-                        <span className="text-sm font-mono text-cyber-blue px-3 py-1 border border-cyber-blue/30 bg-cyber-blue/5 uppercase tracking-widest">
+                <div className="max-w-3xl mx-auto mb-8 sm:mb-12">
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-6 mb-6 sm:mb-8 border-l-2 border-cyber-blue pl-4 py-1 sm:py-2">
+                        <span className="text-xs sm:text-sm font-mono text-cyber-blue px-2 py-0.5 sm:px-3 sm:py-1 border border-cyber-blue/30 bg-cyber-blue/5 uppercase tracking-widest break-all">
                             {writeup.platform}
                         </span>
-                        <span className="text-sm font-mono text-gray-400 uppercase tracking-widest">
-                            [ TARGET_LOG: {new Date(writeup.createdAt).toISOString().split('T')[0]} ]
+                        <span className="text-xs sm:text-sm font-mono text-gray-400 uppercase tracking-widest">
+                            [{new Date(writeup.createdAt).toISOString().split('T')[0]}]
                         </span>
-                        <span className={`text-sm font-mono px-3 py-1 border ${writeup.status === 'LOCKED' ? 'border-red-600 font-bold text-red-500 bg-red-900/10' : 'border-cyber-green/30 text-cyber-green bg-cyber-green/5'
+                        <span className={`text-xs sm:text-sm font-mono px-2 py-0.5 sm:px-3 sm:py-1 border ${writeup.status === 'LOCKED' ? 'border-red-600 font-bold text-red-500 bg-red-900/10' : 'border-cyber-green/30 text-cyber-green bg-cyber-green/5'
                             } uppercase tracking-widest`}>
                             {writeup.status === 'LOCKED' ? 'ACTIVE_MISSION' : writeup.status}
                         </span>

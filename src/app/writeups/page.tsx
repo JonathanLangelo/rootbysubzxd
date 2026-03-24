@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 const POSTS_PER_PAGE = 6;
 
 export const metadata: Metadata = {
-    title: "Mission Logs | SubzXD",
+    title: "Writeups",
     description: "Archives awaiting decryption. No writeups published yet. Check back for future security briefings.",
 };
 
@@ -73,10 +73,10 @@ export default async function WriteupsPage({
         <main className="min-h-screen bg-cyber-black">
             <Navbar />
 
-            <div className="pt-32 pb-20 container mx-auto px-4">
-                <div className="mb-12">
-                    <h1 className="font-mono text-2xl md:text-3xl font-bold text-white mb-4 underline decoration-cyber-blue decoration-4 underline-offset-8 uppercase tracking-tighter">
-                        DATABASE_LOGS
+            <div className="flex-grow pt-24 md:pt-32 pb-16 md:pb-20 w-full max-w-6xl mx-auto px-4 md:px-6">
+                <div className="mb-8 md:mb-12 border-b border-cyber-gray/30 pb-6 md:pb-8">
+                    <h1 className="font-mono text-3xl md:text-5xl font-bold text-white mb-2 md:mb-4 uppercase tracking-tighter mix-blend-screen">
+                        MISSION_LOGS
                     </h1>
                     <p className="text-gray-400 font-mono text-sm md:text-base uppercase tracking-widest flex items-center">
                         <span className="text-cyber-blue mr-3">[ SEC_INTEL ]</span> MISSION_REPORTS
@@ -87,31 +87,31 @@ export default async function WriteupsPage({
                     <BlogFilters />
                 </Suspense>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {writeups.length > 0 ? (
                         writeups.map((writeup: Post) => (
                             <Link
                                 key={writeup.id}
                                 href={`/writeups/${writeup.slug}`}
-                                className="group relative overflow-hidden border border-cyber-gray bg-cyber-black hover:border-cyber-blue/50 transition-all block"
+                                className="group relative overflow-hidden border border-cyber-gray bg-cyber-black hover:border-cyber-blue/50 transition-all flex flex-col h-full w-full"
                             >
-                                <div className="p-6">
+                                <div className="p-4 md:p-6 flex flex-col h-full w-full">
                                     <div className="flex justify-between items-start mb-4">
-                                        <span className={`text-[10px] font-mono border px-2 py-0.5 ${writeup.status === 'LOCKED' ? 'border-red-900/50 text-red-500' : 'border-cyber-blue/30 text-cyber-blue'
+                                        <span className={`text-xs font-mono border px-2 py-0.5 ${writeup.status === 'LOCKED' ? 'border-red-900/50 text-red-500' : 'border-cyber-blue/30 text-cyber-blue'
                                             }`}>
                                             {writeup.platform}: {writeup.status === 'LOCKED' ? 'ACTIVE_MISSION' : writeup.status}
                                         </span>
-                                        <span className="text-[10px] font-mono text-gray-500">
+                                        <span className="text-xs font-mono text-gray-500">
                                             {new Date(writeup.createdAt).toLocaleDateString()}
                                         </span>
                                     </div>
 
-                                    <h3 className="font-mono text-xl font-bold text-white mb-3 group-hover:text-cyber-blue transition-colors">
+                                    <h3 className="font-mono text-lg md:text-xl font-bold text-white mb-3 group-hover:text-cyber-blue transition-colors flex-grow">
                                         {writeup.title}
                                     </h3>
 
-                                    <div className="flex items-center space-x-2">
-                                        <span className={`text-[10px] font-mono px-2 py-0.5 border ${writeup.difficulty === 'Insane' ? 'border-red-600/50 text-red-600 bg-red-900/10' :
+                                    <div className="flex items-center space-x-2 mt-auto">
+                                        <span className={`text-xs font-mono px-2 py-0.5 border ${writeup.difficulty === 'Insane' ? 'border-red-600/50 text-red-600 bg-red-900/10' :
                                             writeup.difficulty === 'Hard' ? 'border-orange-600/50 text-orange-600 bg-orange-900/10' :
                                                 'border-green-600/50 text-green-600 bg-green-900/10'
                                             }`}>

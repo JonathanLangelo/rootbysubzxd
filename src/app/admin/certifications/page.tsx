@@ -1,7 +1,5 @@
 import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Plus, Trash2, ExternalLink } from "lucide-react";
@@ -16,32 +14,28 @@ export default async function AdminCertifications() {
     });
 
     return (
-        <main className="min-h-screen bg-cyber-black flex flex-col">
-            <Navbar />
-
-            <div className="flex-grow pt-32 pb-20 container mx-auto px-4 max-w-5xl">
-                {/* ── Header ── */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12 border-b border-cyber-gray pb-8">
+        <div className="w-full flex-col font-mono selection:bg-cyber-blue selection:text-black mt-6 md:mt-0">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12 border-b border-cyber-gray pb-8">
                     <div>
                         <h1 className="font-mono text-3xl font-bold text-white uppercase tracking-tighter">
                             CERTIFICATIONS
                         </h1>
-                        <p className="text-cyber-blue font-mono text-[10px] uppercase tracking-tighter mt-1 opacity-70">
+                        <p className="text-cyber-blue font-mono text-xs uppercase tracking-tighter mt-1 opacity-70">
                             {"> "} MANAGE_LEARNING_ACHIEVEMENTS
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row w-full md:w-auto items-stretch sm:items-center gap-3">
                         <Link
                             href="/admin/certifications/new"
-                            className="flex items-center gap-2 px-5 py-2 bg-cyber-blue text-black font-mono text-sm font-bold hover:opacity-90 transition-all"
+                            className="flex-1 justify-center flex items-center gap-2 px-5 py-2 bg-cyber-blue text-black font-mono text-sm font-bold hover:opacity-90 transition-all"
                         >
                             <Plus className="w-4 h-4" />
                             NEW_CERT
                         </Link>
                         <Link
                             href="/admin/dashboard"
-                            className="flex items-center gap-2 px-4 py-2 border border-cyber-gray text-gray-400 font-mono text-xs hover:text-white transition-all"
+                            className="flex-1 justify-center flex items-center gap-2 px-4 py-2 border border-cyber-gray text-gray-400 font-mono text-xs hover:text-white transition-all"
                         >
                             DASHBOARD
                         </Link>
@@ -90,9 +84,6 @@ export default async function AdminCertifications() {
                         ))
                     )}
                 </div>
-            </div>
-
-            <Footer />
-        </main>
+        </div>
     );
 }

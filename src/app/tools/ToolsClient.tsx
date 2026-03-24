@@ -89,13 +89,13 @@ export default function ToolsClient() {
                             </p>
 
                             <div className="flex items-center justify-between">
-                                <span className={`text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 border ${tool.status === "ONLINE"
+                                <span className={`text-xs font-mono font-bold uppercase tracking-widest px-2 py-0.5 border ${tool.status === "ONLINE"
                                     ? "text-cyber-blue border-cyber-blue/50 bg-cyber-blue/10"
                                     : "text-gray-700 border-gray-900"
                                     }`}>
                                     {tool.status}
                                 </span>
-                                <div className={`h-0.5 w-12 ${tool.status === "ONLINE" ? "bg-cyber-blue" : "bg-cyber-gray/50"}`}></div>
+                                <div className={`h-0.5 w-12 hidden sm:block ${tool.status === "ONLINE" ? "bg-cyber-blue" : "bg-cyber-gray/50"}`}></div>
                             </div>
 
                             {/* Decoration */}
@@ -113,7 +113,7 @@ export default function ToolsClient() {
                 >
                     <div>
                         <Hammer className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-gray-600">
+                        <p className="font-mono text-xs uppercase tracking-widest text-gray-600">
                             REQUEST_NEW_UTILITY // PROTOCOL_V1.2
                         </p>
                     </div>
