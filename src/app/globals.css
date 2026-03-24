@@ -1,0 +1,77 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-cyber-green: var(--cyber-green);
+  --color-cyber-blue: var(--cyber-blue);
+  --color-cyber-pink: var(--cyber-pink);
+  --color-cyber-black: var(--cyber-black);
+  --color-cyber-gray: var(--cyber-gray);
+
+  --shadow-neon-green: 0 0 5px var(--cyber-green), 0 0 20px rgba(57, 255, 20, 0.3);
+  --shadow-neon-blue: 0 0 5px var(--cyber-blue), 0 0 20px rgba(0, 243, 255, 0.3);
+
+  --font-mono: var(--font-mono), monospace;
+  --font-sans: var(--font-sans), sans-serif;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #e0e0e0;
+  --muted-foreground: #888888;
+  --cyber-green: #39ff14;
+  --cyber-blue: #00f3ff;
+  --cyber-pink: #ff00ff;
+  --cyber-black: #050505;
+  --cyber-gray: #1a1a1a;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.glow-green {
+  text-shadow: 0 0 5px var(--cyber-green);
+}
+
+.glow-blue {
+  text-shadow: 0 0 5px var(--cyber-blue);
+}
+
+.border-neon-green {
+  border: 1px solid var(--cyber-green);
+  box-shadow: var(--shadow-neon-green);
+}
+
+.border-neon-blue {
+  border: 1px solid var(--cyber-blue);
+  box-shadow: var(--shadow-neon-blue);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://subzxd.com/sitemap.xml
+
+# Security: Block admin and API routes
+Disallow: /admin/
+Disallow: /api/

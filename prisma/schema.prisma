@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  username String @unique
+  password String // Hashed password
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String // MDX content
+  description String? // Short description if needed
+  type        String // WRITEUP, CVE, OWASP, INSIGHT, PROJECT
+  platform    String   @default("N/A") // HTB, THM, CTF, N/A
+  difficulty  String? // Easy, Medium, Hard, Insane
+  status      String   @default("DRAFT") // DRAFT, PUBLISHED, LOCKED
+  password    String? // Hashed password if status is LOCKED
+  tags        String? // Comma separated tags
+  thumbnail   String?
+  githubUrl   String?
+  demoUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Certification {
+  id              String   @id @default(cuid())
+  title           String
+  issuer          String
+  date            DateTime
+  description     String?
+  fileUrl         String? // Link to PDF or image
+  thumbnail       String? // Image thumbnail preview
+  verificationUrl String? // Optional link for verifying the cert
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
