@@ -44,6 +44,29 @@ export async function POST(req: Request) {
             );
         }
 
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+
+        const MAGIC_BYTES: Record<string, number[][]> = {
+            "image/jpeg": [[0xff, 0xd8, 0xff]],
+            "image/png": [[0x89, 0x50, 0x4e, 0x47]],
+            "image/webp": [[0x52, 0x49, 0x46, 0x46]],
+            "application/pdf": [[0x25, 0x50, 0x44, 0x46, 0x2d]],
+        };
+
+        const signatures = MAGIC_BYTES[file.type];
+        if (signatures) {
+            const isValid = signatures.some((sig) =>
+                sig.every((byte, i) => buffer[i] === byte)
+            );
+            if (!isValid) {
+                return Response.json(
+                    { error: "File signature mismatch" },
+                    { status: 400 }
+                );
+            }
+        }
+
         const inputFolder = formData.get("folder") as string | null;
         const validFolders = ["certifications"];
         const targetFolder = validFolders.includes(inputFolder || "") ? `${inputFolder}/` : "";
@@ -65,8 +88,7 @@ export async function POST(req: Request) {
 
         return Response.json(
             {
-                error: "Internal Server Error",
-                detail: String(error),
+                error: "Internal Server Error"
             },
             { status: 500 }
         );

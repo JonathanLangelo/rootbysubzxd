@@ -39,11 +39,6 @@ export async function POST(request: Request) {
 
         const isValid = await bcrypt.compare(password, post.password);
 
-        console.log("DEBUG LOGGING:");
-        console.log("- input password length:", password.length);
-        console.log("- stored hash exists:", !!post.password);
-        console.log("- result of bcrypt.compare:", isValid);
-
         if (!isValid) {
             // Record failed attempt
             const count = attempt ? attempt.count + 1 : 1;
