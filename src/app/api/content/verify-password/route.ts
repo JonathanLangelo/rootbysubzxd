@@ -37,23 +37,31 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
         }
 
-        const isMatch = await bcrypt.compare(password, post.password);
+        const isValid = await bcrypt.compare(password, post.password);
 
-        if (isMatch) {
-            verifyAttempts.delete(ip); // Reset on success
+        console.log("DEBUG LOGGING:");
+        console.log("- input password length:", password.length);
+        console.log("- stored hash exists:", !!post.password);
+        console.log("- result of bcrypt.compare:", isValid);
 
-            // ── C1 FIX: Render content server-side and return HTML ────────────
-            // Content is ONLY sent to the client after successful authentication
-            const contentHtml = await renderMDXToHtml(post.content);
+        if (!isValid) {
+            // Record failed attempt
+            const count = attempt ? attempt.count + 1 : 1;
+            verifyAttempts.set(ip, { count, lastAttempt: now });
 
-            return NextResponse.json({ success: true, contentHtml });
+            return NextResponse.json(
+                { error: "Invalid password" },
+                { status: 401 }
+            );
         }
 
-        // Record failed attempt
-        const count = attempt ? attempt.count + 1 : 1;
-        verifyAttempts.set(ip, { count, lastAttempt: now });
+        verifyAttempts.delete(ip); // Reset on success
 
-        return NextResponse.json({ error: "INVALID_CREDENTIALS" }, { status: 401 });
+        // ── C1 FIX: Render content server-side and return HTML ────────────
+        // Content is ONLY sent to the client after successful authentication
+        const contentHtml = await renderMDXToHtml(post.content);
+
+        return NextResponse.json({ success: true, contentHtml });
     } catch (error) {
         return NextResponse.json({ error: "INTERNAL_SERVER_ERROR" }, { status: 500 });
     }
