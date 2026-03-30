@@ -78,7 +78,7 @@ const mdxComponents = {
         </div>
     ),
     code: ({ children, className }: any) => (
-        <code className={className ? "text-inherit" : "bg-white/[0.1] px-1.5 py-0.5 rounded text-white font-mono text-[11px]"}>
+        <code className={className ? "text-inherit" : "bg-white/[0.1] px-1.5 py-0.5 rounded text-white font-mono text-sm"}>
             {children}
         </code>
     ),
