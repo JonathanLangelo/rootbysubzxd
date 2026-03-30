@@ -8,39 +8,42 @@ import Lightbox from "@/components/Lightbox";
 const components = {
     img: (props: any) => <Lightbox {...props} />,
     h1: (props: any) => (
-        <h1 className="text-3xl font-mono font-bold text-cyber-green mt-12 mb-6 border-l-4 border-cyber-green pl-4 uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,0,0.2)]" {...props} />
+        <h1 className="text-3xl md:text-4xl font-mono font-bold text-white mt-16 mb-8 tracking-tighter uppercase relative inline-block" {...props}>
+            <span className="relative z-10">{props.children}</span>
+            <div className="absolute -bottom-2 left-0 w-full h-1 bg-cyber-blue drop-shadow-[0_0_8px_var(--cyber-blue)] opacity-40"></div>
+        </h1>
     ),
     h2: (props: any) => (
-        <h2 className="text-2xl font-mono font-bold text-cyber-blue mt-10 mb-5 border-l-4 border-cyber-blue pl-4 uppercase tracking-tighter" {...props} />
+        <h2 className="text-2xl md:text-3xl font-mono font-bold text-white mt-12 mb-6 tracking-tight uppercase relative inline-block border-b-2 border-cyber-blue/20 pb-2" {...props} />
     ),
     h3: (props: any) => (
-        <h3 className="text-xl font-mono font-bold text-cyber-pink mt-8 mb-4 border-l-4 border-cyber-pink pl-4 uppercase tracking-tighter" {...props} />
+        <h3 className="text-xl font-mono font-bold text-cyber-blue mt-10 mb-4 tracking-wide uppercase" {...props} />
     ),
-    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-6 font-sans text-base tracking-wide" {...props} />,
+    p: (props: any) => <p className="text-gray-200 leading-[1.8] mb-8 font-sans text-base md:text-lg tracking-normal opacity-90" {...props} />,
     a: (props: any) => (
-        <a className="text-cyber-blue hover:text-cyber-green underline underline-offset-4 decoration-cyber-blue/30 hover:decoration-cyber-green/50 transition-all duration-300" target="_blank" rel="noopener noreferrer" {...props} />
+        <a className="text-cyber-green hover:brightness-125 underline underline-offset-8 decoration-cyber-green/30 hover:decoration-cyber-green transition-all duration-300 font-medium" target="_blank" rel="noopener noreferrer" {...props} />
     ),
-    ul: (props: any) => <ul className="list-none space-y-3 mb-6 ml-2" {...props} />,
-    ol: (props: any) => <ol className="list-decimal space-y-3 mb-6 ml-6 text-gray-300 marker:text-cyber-blue font-mono" {...props} />,
+    ul: (props: any) => <ul className="list-none space-y-4 mb-8 ml-2" {...props} />,
+    ol: (props: any) => <ol className="list-decimal space-y-4 mb-8 ml-8 text-gray-200 marker:text-cyber-blue font-mono text-base" {...props} />,
     li: (props: any) => (
-        <li className="relative pl-6 text-gray-300" {...props}>
-            <span className="absolute left-0 text-cyber-green font-bold select-none">{">_"}</span>
+        <li className="relative pl-8 text-gray-200 text-base md:text-lg leading-relaxed" {...props}>
+            <span className="absolute left-0 text-cyber-blue font-bold select-none opacity-60">{"//"}</span>
             <span className="flex-grow">{props.children}</span>
         </li>
     ),
     blockquote: (props: any) => (
-        <blockquote className="border-l-4 border-cyber-blue bg-cyber-blue/5 p-6 my-8 text-gray-400 italic font-mono text-sm leading-6 relative overflow-hidden" {...props}>
-            <div className="absolute top-0 right-0 p-2 opacity-10 pointer-events-none select-none">
-                <span className="text-4xl text-cyber-blue">"</span>
+        <blockquote className="border-l-2 border-cyber-blue/50 bg-[#0d0d0f] p-8 my-10 text-gray-300 font-sans text-lg italic leading-relaxed shadow-xl ring-1 ring-white/5 relative overflow-hidden" {...props}>
+            <div className="absolute -top-4 -right-2 opacity-5 pointer-events-none select-none">
+                <span className="text-[120px] font-serif font-bold text-cyber-blue">"</span>
             </div>
-            {props.children}
+            <div className="relative z-10">{props.children}</div>
         </blockquote>
     ),
     hr: () => (
-        <div className="my-12 flex items-center gap-4">
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-30"></div>
-            <div className="w-2 h-2 rotate-45 border border-cyber-blue/50 bg-cyber-black"></div>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-30"></div>
+        <div className="my-16 py-4 flex items-center justify-center opacity-30">
+            <div className="h-px w-24 bg-gradient-to-r from-transparent to-cyber-blue"></div>
+            <div className="mx-4 text-cyber-blue font-mono text-[10px] tracking-widest uppercase">EOF_SIGNAL_DISCONNECT</div>
+            <div className="h-px w-24 bg-gradient-to-l from-transparent to-cyber-blue"></div>
         </div>
     ),
 

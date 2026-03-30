@@ -26,48 +26,51 @@ import Lightbox from "@/components/Lightbox";
 const mdxComponents = {
     img: (props: any) => <Lightbox {...props} />,
     h1: (props: any) => (
-        <h1 className="text-xl font-mono font-bold text-cyber-green mt-8 mb-4 border-l-4 border-cyber-green pl-3 uppercase tracking-tighter" {...props} />
+        <h1 className="text-2xl font-mono font-bold text-white mt-10 mb-6 uppercase tracking-tighter relative inline-block" {...props}>
+            <span className="relative z-10">{props.children}</span>
+            <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-cyber-blue opacity-50"></div>
+        </h1>
     ),
     h2: (props: any) => (
-        <h2 className="text-lg font-mono font-bold text-cyber-blue mt-8 mb-4 border-l-4 border-cyber-blue pl-3 uppercase tracking-tighter" {...props} />
+        <h2 className="text-xl font-mono font-bold text-white mt-8 mb-4 uppercase tracking-tight border-b border-white/10 pb-1" {...props} />
     ),
     h3: (props: any) => (
-        <h3 className="text-md font-mono font-bold text-cyber-pink mt-6 mb-3 border-l-4 border-cyber-pink pl-3 uppercase tracking-tighter" {...props} />
+        <h3 className="text-lg font-mono font-bold text-cyber-blue mt-6 mb-3 uppercase" {...props} />
     ),
-    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-4 text-sm font-sans" {...props} />,
+    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base font-sans" {...props} />,
     a: (props: any) => (
-        <a className="text-cyber-blue hover:text-cyber-green underline underline-offset-4 transition-colors text-sm" target="_blank" rel="noopener noreferrer" {...props} />
+        <a className="text-cyber-green hover:brightness-125 underline underline-offset-4 transition-all text-sm" target="_blank" rel="noopener noreferrer" {...props} />
     ),
-    ul: (props: any) => <ul className="list-none space-y-2 mb-4 ml-1 text-sm" {...props} />,
+    ul: (props: any) => <ul className="list-none space-y-3 mb-6 ml-1 text-sm md:text-base" {...props} />,
     li: (props: any) => (
-        <li className="relative pl-5 text-gray-300" {...props}>
-            <span className="absolute left-0 text-cyber-green font-bold text-xs">{">_"}</span>
+        <li className="relative pl-6 text-gray-300" {...props}>
+            <span className="absolute left-0 text-cyber-blue font-bold opacity-40">{"//"}</span>
             {props.children}
         </li>
     ),
     blockquote: (props: any) => (
-        <blockquote className="border-l-4 border-cyber-blue bg-cyber-blue/5 p-4 my-6 text-gray-400 italic font-mono text-xs leading-5" {...props} />
+        <blockquote className="border-l-2 border-cyber-blue/30 bg-white/[0.02] p-5 my-8 text-gray-400 italic font-sans text-sm leading-6" {...props} />
     ),
     hr: () => (
-        <div className="my-10 flex items-center gap-3">
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-20"></div>
-            <div className="w-1.5 h-1.5 rotate-45 border border-cyber-blue/50 bg-cyber-black"></div>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-20"></div>
+        <div className="my-12 flex items-center justify-center opacity-20">
+            <div className="h-px w-12 bg-cyber-blue"></div>
+            <div className="mx-3 text-[8px] font-mono uppercase tracking-[0.3em]">EOF</div>
+            <div className="h-px w-12 bg-cyber-blue"></div>
         </div>
     ),
     pre: ({ children }: any) => (
-        <div className="my-6 border border-cyber-gray/30 bg-black/40 rounded overflow-hidden">
-            <div className="px-3 py-1 bg-cyber-gray/10 border-b border-cyber-gray/20 flex items-center gap-1.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-red-500/20"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/20"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-green-500/20"></div>
-                <span className="text-[9px] text-gray-600 font-mono ml-1">TERMINAL_BUFFER</span>
+        <div className="my-8 border border-white/5 bg-[#08080a] rounded overflow-hidden shadow-xl">
+            <div className="px-4 py-1.5 bg-white/[0.03] border-b border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyber-blue/40"></div>
+                    <span className="text-[8px] text-gray-500 font-mono tracking-widest uppercase">PREVIEW_BUFFER</span>
+                </div>
             </div>
-            <pre className="p-4 overflow-x-auto text-[10px] sm:text-xs text-cyber-blue/90 font-mono leading-relaxed">{children}</pre>
+            <pre className="p-5 overflow-x-auto text-[11px] sm:text-xs text-cyber-blue/90 font-mono leading-relaxed">{children}</pre>
         </div>
     ),
     code: ({ children, className }: any) => (
-        <code className={className ? "text-inherit" : "bg-cyber-gray/20 px-1 py-0.5 rounded text-cyber-pink font-mono text-[11px]"}>
+        <code className={className ? "text-inherit" : "bg-white/[0.08] px-1.5 py-0.5 rounded text-cyber-pink font-mono text-[11px]"}>
             {children}
         </code>
     ),

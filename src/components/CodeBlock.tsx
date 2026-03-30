@@ -19,52 +19,45 @@ export default function CodeBlock({ html, code, lang }: CodeBlockProps) {
     };
 
     return (
-        <div className="my-10 relative group border border-cyber-gray/50 bg-[#0a0a0c]/80 rounded-lg overflow-hidden font-mono shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-sm">
-            {/* ── Terminal Header ── */}
-            <div className="px-4 py-2 bg-cyber-gray/10 border-b border-cyber-gray/30 flex items-center justify-between select-none">
-                <div className="flex items-center gap-2">
-                    <div className="flex gap-1.5 h-full items-center mr-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-900/50 border border-red-500/30"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-900/50 border border-yellow-500/30"></div>
-                        <div className="w-2.5 h-2.5 rounded-full bg-green-900/50 border border-green-500/30"></div>
+        <div className="my-12 relative group bg-[#08080a] border border-white/5 rounded-md overflow-hidden font-mono shadow-2xl transition-all hover:border-cyber-blue/30">
+            {/* ── Minimal Terminal Header ── */}
+            <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/5 flex items-center justify-between select-none">
+                <div className="flex items-center gap-3">
+                    <div className="flex gap-1.5 items-center">
+                        <div className="w-2 h-2 rounded-full bg-cyber-blue opacity-40"></div>
                     </div>
-                    <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">
-                        {lang || "TERMINAL"} // SESSION_LOG
+                    <span className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-medium">
+                        {lang || "SYSTEM_LOG"} <span className="opacity-30 mx-2">//</span> <span className="opacity-50">PROT_V.2</span>
                     </span>
                 </div>
                 
                 <button
                     onClick={copyToClipboard}
-                    className="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 hover:text-cyber-blue transition-colors uppercase tracking-tight"
+                    className="flex items-center gap-2 group/btn"
                 >
+                    <span className="text-[9px] font-bold text-gray-500 group-hover/btn:text-cyber-blue transition-colors uppercase tracking-widest">
+                        {copied ? "COPIED_TO_CLIPBOARD" : "COPY_CONTENT"}
+                    </span>
                     {copied ? (
-                        <>
-                            <Check className="w-3 h-3 text-cyber-green" />
-                            <span className="text-cyber-green">COPIED</span>
-                        </>
+                        <Check className="w-3 h-3 text-cyber-green" />
                     ) : (
-                        <>
-                            <Copy className="w-3 h-3" />
-                            <span>CLIPBOARD_COPY</span>
-                        </>
+                        <Copy className="w-3 h-3 text-gray-600 group-hover/btn:text-cyber-blue transition-all" />
                     )}
                 </button>
             </div>
 
-            {/* ── Scanline/Grid Overlay (Subtle) ── */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]"></div>
+            {/* ── Subtler CRT Effect ── */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_2px,3px_100%]"></div>
 
             {/* ── Code Content ── */}
             <div
-                className="p-6 overflow-x-auto text-sm md:text-base leading-relaxed selection:bg-cyber-blue/30 scrollbar-thin scrollbar-thumb-cyber-gray [&>pre]:!bg-transparent [&>pre]:!p-0"
+                className="p-6 md:p-8 overflow-x-auto text-[13px] md:text-[15px] leading-[1.7] selection:bg-cyber-blue/20 scrollbar-thin scrollbar-thumb-white/10 [&>pre]:!bg-transparent [&>pre]:!p-0 font-mono"
                 dangerouslySetInnerHTML={{ __html: html }}
             />
             
-            {/* ── Status Footer (Subtle) ── */}
-            <div className="px-4 py-1.5 border-t border-cyber-gray/10 flex justify-end">
-                <span className="text-[9px] text-gray-700 uppercase italic">
-                    {"// READ_ONLY_BUFFER //"}
-                </span>
+            {/* ── Subtle Tag ── */}
+            <div className="absolute bottom-2 right-4 pointer-events-none">
+                <span className="text-[8px] text-white/5 uppercase tracking-[0.3em] font-bold">NODE_0x241_STABLE</span>
             </div>
         </div>
     );
