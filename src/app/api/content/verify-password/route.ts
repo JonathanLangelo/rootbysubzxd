@@ -16,13 +16,14 @@ export async function POST(request: Request) {
 
     if (attempt && now - attempt.lastAttempt < RATE_LIMIT_WINDOW && attempt.count >= MAX_ATTEMPTS) {
         return NextResponse.json(
-            { error: "TOO_MANY_ATTEMPTS: LOCKDOWN_ACTIVE" },
+            { error: "RATE_LIMIT_EXCEEDED" },
             { status: 429 }
         );
     }
 
     try {
-        const { id, password } = await request.json();
+        const { id, password: rawPassword } = await request.json();
+        const password = rawPassword?.trim();
 
         if (!id || !password || typeof id !== "string" || typeof password !== "string") {
             return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
@@ -30,11 +31,15 @@ export async function POST(request: Request) {
 
         const post = await prisma.post.findUnique({
             where: { id },
-            select: { password: true, status: true, content: true },
+            select: { password: true, status: true, content: true, title: true },
         });
 
-        if (!post || post.status !== "LOCKED" || !post.password) {
-            return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
+        if (!post) {
+            return NextResponse.json({ error: "POST_NOT_FOUND" }, { status: 404 });
+        }
+
+        if (post.status !== "LOCKED" || !post.password) {
+            return NextResponse.json({ error: "CONTENT_NOT_LOCKED" }, { status: 400 });
         }
 
         const isValid = await bcrypt.compare(password, post.password);
@@ -53,11 +58,17 @@ export async function POST(request: Request) {
         verifyAttempts.delete(ip); // Reset on success
 
         // ── C1 FIX: Render content server-side and return HTML ────────────
-        // Content is ONLY sent to the client after successful authentication
-        const contentHtml = await renderMDXToHtml(post.content);
+        try {
+            const contentHtml = await renderMDXToHtml(post.content);
+            return NextResponse.json({ success: true, contentHtml });
+        } catch (renderError) {
+            console.error("MDX Rendering failed in unlock:", renderError);
+            // If rendering fails (likely due to async components), return raw MDX for client-side fallback
+            return NextResponse.json({ success: true, contentMdx: post.content });
+        }
 
-        return NextResponse.json({ success: true, contentHtml });
     } catch (error) {
+        console.error("Auth process error:", error);
         return NextResponse.json({ error: "INTERNAL_SERVER_ERROR" }, { status: 500 });
     }
 }

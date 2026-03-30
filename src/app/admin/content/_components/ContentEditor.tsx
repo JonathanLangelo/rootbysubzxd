@@ -105,6 +105,7 @@ export default function ContentEditor({
     const [toast, setToast] = useState<ToastState | null>(null);
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
     const [uploadingImage, setUploadingImage] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [formData, setFormData] = useState<FormState>({
@@ -153,7 +154,7 @@ export default function ContentEditor({
             );
 
             const data = new FormData();
-            const payload = { ...formData, status: targetStatus };
+            const payload = { ...formData, status: targetStatus, password: formData.password.trim() };
             (Object.keys(payload) as (keyof FormState)[]).forEach((key) => {
                 const val = payload[key];
                 if (val !== null && val !== undefined && val !== "") {
@@ -518,15 +519,24 @@ export default function ContentEditor({
                                         <Lock className="w-3 h-3" />
                                         Access Key (Password)
                                     </label>
-                                    <input
-                                        id="content-password"
-                                        type="password"
-                                        value={formData.password}
-                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                        className="w-full bg-cyber-black border border-red-500/30 p-2 text-red-400 font-mono text-xs outline-none focus:border-red-400 transition-colors"
-                                        placeholder="ENTER_ACCESS_KEY"
-                                        autoComplete="new-password"
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            id="content-password"
+                                            type={showPassword ? "text" : "password"}
+                                            value={formData.password}
+                                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                            className="w-full bg-cyber-black border border-red-500/30 p-2 pr-10 text-red-400 font-mono text-xs outline-none focus:border-red-400 transition-colors"
+                                            placeholder="ENTER_ACCESS_KEY"
+                                            autoComplete="new-password"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-red-500/50 hover:text-red-400"
+                                        >
+                                            <Lock className={`w-3 h-3 ${showPassword ? "opacity-30" : ""}`} />
+                                        </button>
+                                    </div>
                                     <p className="font-mono text-[9px] text-gray-700 mt-1">Leave blank to keep existing key.</p>
                                 </div>
                             )}

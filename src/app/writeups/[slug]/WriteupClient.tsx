@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import PasswordPrompt from "@/components/PasswordPrompt";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface WriteupClientProps {
     id: string;
@@ -17,6 +19,7 @@ export default function WriteupClient({ id, slug, title, isProtected, content }:
     const [loading, setLoading] = useState(false);
     // For locked posts, content is fetched as raw HTML after authentication
     const [fetchedHtml, setFetchedHtml] = useState<string | null>(null);
+    const [fetchedMdx, setFetchedMdx] = useState<string | null>(null);
 
     const handlePasswordSubmit = async (password: string) => {
         setLoading(true);
@@ -34,9 +37,17 @@ export default function WriteupClient({ id, slug, title, isProtected, content }:
                 // The API now returns rendered content HTML after successful auth
                 if (data.contentHtml) {
                     setFetchedHtml(data.contentHtml);
+                } else if (data.contentMdx) {
+                    setFetchedMdx(data.contentMdx);
                 }
             } else {
-                setError("ACCESS_DENIED: INVALID_TOKEN");
+                const data = await res.json().catch(() => ({}));
+                switch (res.status) {
+                    case 401: setError("INVALID_ACCESS_KEY"); break;
+                    case 429: setError("TOO_MANY_ATTEMPTS: PLEASE_WAIT"); break;
+                    case 404: setError("RESOURCE_NOT_FOUND"); break;
+                    default: setError(`ACCESS_DENIED: ${data.error || "UNKNOWN_ERROR"}`);
+                }
             }
         } catch (err) {
             setError("SYSTEM_FAILURE: OFFLINE_MODE");
@@ -76,8 +87,17 @@ export default function WriteupClient({ id, slug, title, isProtected, content }:
                         <div dangerouslySetInnerHTML={{ __html: fetchedHtml }} />
                     )}
 
+                    {/* Fallback to MDX if HTML failed to render on server */}
+                    {!content && !fetchedHtml && fetchedMdx && (
+                        <div className="font-sans leading-relaxed">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {fetchedMdx}
+                            </ReactMarkdown>
+                        </div>
+                    )}
+
                     {/* Fallback if neither is available */}
-                    {!content && !fetchedHtml && (
+                    {!content && !fetchedHtml && !fetchedMdx && (
                         <p className="text-gray-500 font-mono text-sm italic">
                             {">"} Content buffer empty. Authentication may have failed.
                         </p>

@@ -10,10 +10,11 @@ interface PasswordPromptProps {
 
 export default function PasswordPrompt({ onSuccess, error }: PasswordPromptProps) {
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSuccess(password);
+        onSuccess(password.trim());
     };
 
     return (
@@ -42,13 +43,20 @@ export default function PasswordPrompt({ onSuccess, error }: PasswordPromptProps
                                 <Lock className="h-5 w-5 text-red-900" />
                             </div>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="ENTER_AUTHENTICATION_KEY..."
-                                className="block w-full pl-10 pr-3 py-3 border border-red-900/50 bg-black text-red-500 font-mono text-sm placeholder-red-900 focus:outline-none focus:border-red-600 focus:glow-red transition-all"
+                                className="block w-full pl-10 pr-10 py-3 border border-red-900/50 bg-black text-red-500 font-mono text-sm placeholder-red-900 focus:outline-none focus:border-red-600 focus:glow-red transition-all"
                                 required
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-red-900 hover:text-red-500 transition-colors"
+                            >
+                                <Lock className={`h-4 w-4 ${showPassword ? "opacity-30" : "opacity-100"}`} />
+                            </button>
                         </div>
 
                         {error && (

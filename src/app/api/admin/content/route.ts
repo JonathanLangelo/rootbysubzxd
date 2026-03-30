@@ -98,7 +98,10 @@ export async function POST(request: Request) {
 
         // Hash password if LOCKED
         let hashedPassword: string | null = null;
-        if (status === "LOCKED" && password) {
+        if (status === "LOCKED") {
+            if (!password) {
+                return NextResponse.json({ error: "PASSWORD_REQUIRED_FOR_LOCKED_STATUS" }, { status: 400 });
+            }
             hashedPassword = await bcrypt.hash(password, 10);
         }
 
@@ -184,8 +187,13 @@ export async function PUT(request: Request) {
         if (status === "LOCKED") {
             if (password && !password.startsWith("$2")) {
                 updateData.password = await bcrypt.hash(password, 10);
+            } else {
+                // If it's becoming LOCKED but no password provided, check if it already has one
+                const currentPost = await prisma.post.findUnique({ where: { id }, select: { password: true } });
+                if (!currentPost?.password && !password) {
+                    return NextResponse.json({ error: "PASSWORD_REQUIRED_FOR_LOCKED_STATUS" }, { status: 400 });
+                }
             }
-            // else: keep existing hash in DB (no update needed)
         } else {
             updateData.password = null;
         }
