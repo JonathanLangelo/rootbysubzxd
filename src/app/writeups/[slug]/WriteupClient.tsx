@@ -5,47 +5,46 @@ import PasswordPrompt from "@/components/PasswordPrompt";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Lightbox from "@/components/Lightbox";
+import { Search, Code2, ShieldAlert, Lightbulb } from "lucide-react";
 
 const mdxComponents = {
     img: (props: any) => <Lightbox {...props} />,
     h1: (props: any) => (
-        <h1 className="text-3xl font-mono font-bold text-cyber-green mt-12 mb-6 border-l-4 border-cyber-green pl-4 uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,0,0.2)]" {...props} />
+        <h1 className="text-2xl font-mono font-bold text-white mt-10 mb-6 uppercase tracking-tighter border-b border-white/10 pb-2" {...props} />
     ),
     h2: (props: any) => (
-        <h2 className="text-2xl font-mono font-bold text-cyber-blue mt-10 mb-5 border-l-4 border-cyber-blue pl-4 uppercase tracking-tighter" {...props} />
+        <h2 className="text-xl font-mono font-bold text-white mt-8 mb-4 uppercase tracking-tight" {...props} />
     ),
     h3: (props: any) => (
-        <h3 className="text-xl font-mono font-bold text-cyber-pink mt-8 mb-4 border-l-4 border-cyber-pink pl-4 uppercase tracking-tighter" {...props} />
+        <h3 className="text-lg font-mono font-bold text-white/70 mt-6 mb-3 uppercase border-l-2 border-white/20 pl-3" {...props} />
     ),
-    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-6 font-sans text-base tracking-wide" {...props} />,
+    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base font-sans" {...props} />,
     a: (props: any) => (
-        <a className="text-cyber-blue hover:text-cyber-green underline underline-offset-4 decoration-cyber-blue/30 hover:decoration-cyber-green/50 transition-all duration-300" target="_blank" rel="noopener noreferrer" {...props} />
+        <a className="text-white underline underline-offset-4 transition-all text-sm" target="_blank" rel="noopener noreferrer" {...props} />
     ),
-    ul: (props: any) => <ul className="list-none space-y-3 mb-6 ml-2" {...props} />,
-    ol: (props: any) => <ol className="list-decimal space-y-3 mb-6 ml-6 text-gray-300 marker:text-cyber-blue font-mono" {...props} />,
+    ul: (props: any) => <ul className="list-disc space-y-3 mb-6 ml-6 text-sm md:text-base text-gray-300" {...props} />,
     li: (props: any) => (
-        <li className="relative pl-6 text-gray-300" {...props}>
-            <span className="absolute left-0 text-cyber-green font-bold select-none">{">_"}</span>
-            <span className="flex-grow">{props.children}</span>
+        <li className="text-gray-300 pl-1" {...props}>
+            {props.children}
         </li>
     ),
     blockquote: (props: any) => (
-        <blockquote className="border-l-4 border-cyber-blue bg-cyber-blue/5 p-6 my-8 text-gray-400 italic font-mono text-sm leading-6 relative overflow-hidden" {...props}>
-            <div className="absolute top-0 right-0 p-2 opacity-10 pointer-events-none select-none">
-                <span className="text-4xl text-cyber-blue">"</span>
-            </div>
-            {props.children}
-        </blockquote>
+        <blockquote className="border-l-2 border-white/20 bg-white/[0.02] p-5 my-8 text-gray-400 italic font-sans text-sm leading-6" {...props} />
     ),
-    hr: () => (
-        <div className="my-12 flex items-center gap-4">
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-30"></div>
-            <div className="w-2 h-2 rotate-45 border border-cyber-blue/50 bg-cyber-black"></div>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-30"></div>
+    hr: () => <hr className="my-12 border-white/10" />,
+    pre: ({ children }: any) => (
+        <div className="my-8 border border-white/10 bg-[#050505] rounded-sm overflow-hidden shadow-xl">
+            <div className="px-4 py-2 bg-white/[0.03] border-b border-white/10 flex items-center justify-between">
+                <span className="text-[8px] text-gray-500 font-mono tracking-widest uppercase text-center w-full">SOURCE_BUFFER // READ_ONLY</span>
+            </div>
+            <pre className="p-5 overflow-x-auto text-[11px] sm:text-xs text-gray-300 font-mono leading-relaxed">{children}</pre>
         </div>
     ),
-    pre: ({ children }: any) => <pre className="bg-cyber-gray/10 p-4 border border-cyber-gray/30 my-4 overflow-x-auto">{children}</pre>,
-    code: ({ children, className }: any) => <code className={className || "bg-cyber-gray/30 text-cyber-pink px-1.5 py-0.5 text-sm font-mono border border-cyber-gray/20 rounded-sm"}>{children}</code>,
+    code: ({ children, className }: any) => (
+        <code className={className ? "text-inherit" : "bg-white/[0.1] px-1.5 py-0.5 rounded text-white font-mono text-[11px]"}>
+            {children}
+        </code>
+    ),
 };
 
 interface WriteupClientProps {

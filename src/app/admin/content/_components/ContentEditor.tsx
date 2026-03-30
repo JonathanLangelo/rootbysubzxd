@@ -16,6 +16,10 @@ import {
     CheckCircle,
     AlertCircle,
     Copy,
+    Search,
+    Code2,
+    ShieldAlert,
+    Lightbulb,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -26,51 +30,55 @@ import Lightbox from "@/components/Lightbox";
 const mdxComponents = {
     img: (props: any) => <Lightbox {...props} />,
     h1: (props: any) => (
-        <h1 className="text-2xl font-mono font-bold text-white mt-10 mb-6 uppercase tracking-tighter relative inline-block" {...props}>
-            <span className="relative z-10">{props.children}</span>
-            <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-cyber-blue opacity-50"></div>
-        </h1>
+        <h1 className="text-3xl font-sans font-bold text-white mt-10 mb-6 tracking-tight" {...props} />
     ),
-    h2: (props: any) => (
-        <h2 className="text-xl font-mono font-bold text-white mt-8 mb-4 uppercase tracking-tight border-b border-white/10 pb-1" {...props} />
-    ),
+    h2: (props: any) => {
+        const text = props.children?.toString() || "";
+        const isSearch = text.toLowerCase().includes("scan") || text.toLowerCase().includes("nmap");
+        const isCode = text.toLowerCase().includes("exploit");
+        const isShield = text.toLowerCase().includes("post") || text.toLowerCase().includes("security");
+        
+        return (
+            <h2 className="text-xl font-sans font-bold text-white mt-8 mb-4 flex items-center gap-2" {...props}>
+                {isSearch && <Search className="w-4 h-4 text-cyber-green" />}
+                {isCode && <Code2 className="w-4 h-4 text-cyber-green" />}
+                {isShield && <ShieldAlert className="w-4 h-4 text-cyber-green" />}
+                <span>{props.children}</span>
+            </h2>
+        );
+    },
     h3: (props: any) => (
-        <h3 className="text-lg font-mono font-bold text-cyber-blue mt-6 mb-3 uppercase" {...props} />
+        <h3 className="text-md font-sans font-bold text-cyber-green mt-6 mb-3 uppercase tracking-widest" {...props} />
     ),
-    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base font-sans" {...props} />,
+    p: (props: any) => <p className="text-gray-200 leading-relaxed mb-6 text-sm md:text-base font-sans" {...props} />,
     a: (props: any) => (
-        <a className="text-cyber-green hover:brightness-125 underline underline-offset-4 transition-all text-sm" target="_blank" rel="noopener noreferrer" {...props} />
+        <a className="text-cyber-green font-bold hover:underline transition-all text-sm" target="_blank" rel="noopener noreferrer" {...props} />
     ),
-    ul: (props: any) => <ul className="list-none space-y-3 mb-6 ml-1 text-sm md:text-base" {...props} />,
+    ul: (props: any) => <ul className="list-disc space-y-2 mb-6 ml-6 text-sm md:text-base text-gray-300" {...props} />,
     li: (props: any) => (
-        <li className="relative pl-6 text-gray-300" {...props}>
-            <span className="absolute left-0 text-cyber-blue font-bold opacity-40">{"//"}</span>
+        <li className="text-gray-300 pl-1" {...props}>
             {props.children}
         </li>
     ),
     blockquote: (props: any) => (
-        <blockquote className="border-l-2 border-cyber-blue/30 bg-white/[0.02] p-5 my-8 text-gray-400 italic font-sans text-sm leading-6" {...props} />
-    ),
-    hr: () => (
-        <div className="my-12 flex items-center justify-center opacity-20">
-            <div className="h-px w-12 bg-cyber-blue"></div>
-            <div className="mx-3 text-[8px] font-mono uppercase tracking-[0.3em]">EOF</div>
-            <div className="h-px w-12 bg-cyber-blue"></div>
+        <div className="my-8 p-4 bg-[#0a1a0a]/30 border border-cyber-green/20 rounded-md">
+            <div className="flex items-center gap-2 mb-2">
+                <Lightbulb className="w-4 h-4 text-cyber-green" />
+                <span className="font-bold text-cyber-green text-[10px] uppercase tracking-widest">HINT // PRO_TIP</span>
+            </div>
+            <div className="text-gray-400 font-sans text-xs md:text-sm italic leading-relaxed">
+                {props.children}
+            </div>
         </div>
     ),
+    hr: () => <hr className="my-10 border-white/5" />,
     pre: ({ children }: any) => (
-        <div className="my-8 border border-white/5 bg-[#08080a] rounded overflow-hidden shadow-xl">
-            <div className="px-4 py-1.5 bg-white/[0.03] border-b border-white/5 flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyber-blue/40"></div>
-                    <span className="text-[8px] text-gray-500 font-mono tracking-widest uppercase">PREVIEW_BUFFER</span>
-                </div>
-            </div>
-            <pre className="p-5 overflow-x-auto text-[11px] sm:text-xs text-cyber-blue/90 font-mono leading-relaxed">{children}</pre>
+        <div className="my-8 bg-[#000000] border border-white/5 rounded-lg overflow-hidden shadow-xl">
+            <pre className="p-5 overflow-x-auto text-[11px] sm:text-xs text-gray-300 font-mono leading-relaxed">{children}</pre>
         </div>
     ),
     code: ({ children, className }: any) => (
-        <code className={className ? "text-inherit" : "bg-white/[0.08] px-1.5 py-0.5 rounded text-cyber-pink font-mono text-[11px]"}>
+        <code className={className ? "text-inherit" : "bg-white/[0.1] px-1.5 py-0.5 rounded text-white font-mono text-[11px]"}>
             {children}
         </code>
     ),
