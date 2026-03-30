@@ -20,6 +20,28 @@ import {
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import slugify from "slugify";
+import Lightbox from "@/components/Lightbox";
+
+// ── Shared MDX components for Client Preview ──────────────────────────────
+const mdxComponents = {
+    img: (props: any) => <Lightbox {...props} />,
+    h1: (props: any) => <h1 className="text-xl font-mono font-bold text-cyber-green mt-4 mb-2 border-b border-cyber-green/20 pb-1" {...props} />,
+    h2: (props: any) => <h2 className="text-lg font-mono font-bold text-cyber-blue mt-4 mb-2" {...props} />,
+    h3: (props: any) => <h3 className="text-md font-mono font-bold text-cyber-pink mt-3 mb-1" {...props} />,
+    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-3 text-sm" {...props} />,
+    a: (props: any) => (
+        <a className="text-cyber-blue hover:text-cyber-green underline underline-offset-4 transition-colors text-sm" target="_blank" rel="noopener noreferrer" {...props} />
+    ),
+    ul: (props: any) => <ul className="list-none space-y-1 mb-3 ml-2 text-sm" {...props} />,
+    li: (props: any) => (
+        <li className="relative pl-4" {...props}>
+            <span className="absolute left-0 text-cyber-green">{">"}</span>
+            {props.children}
+        </li>
+    ),
+    pre: ({ children }: any) => <pre className="bg-cyber-gray/10 p-3 border border-cyber-gray/30 my-3 overflow-x-auto text-xs">{children}</pre>,
+    code: ({ children, className }: any) => <code className={className || "bg-cyber-gray/20 px-1 py-0.5 rounded text-cyber-pink"}>{children}</code>,
+};
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FormState {
@@ -106,7 +128,9 @@ export default function ContentEditor({
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
     const [uploadingImage, setUploadingImage] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const [formData, setFormData] = useState<FormState>({
         title: initialData?.title || "",
@@ -135,6 +159,17 @@ export default function ContentEditor({
     }, []);
 
     // ── API call helper ───────────────────────────────────────────────────────
+    // ── Generate Preview for newly selected thumbnail ────────────────────────
+    useEffect(() => {
+        if (!thumbnail) {
+            setThumbnailPreview(null);
+            return;
+        }
+        const objectUrl = URL.createObjectURL(thumbnail);
+        setThumbnailPreview(objectUrl);
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [thumbnail]);
+
     const submitContent = useCallback(
         async (statusOverride?: string) => {
             const targetStatus = statusOverride ?? formData.status;
@@ -273,10 +308,29 @@ export default function ContentEditor({
             const json = await res.json();
             if (res.ok && json.url) {
                 const mdSnippet = `![image](${json.url})`;
-                setFormData((prev) => ({
-                    ...prev,
-                    content: prev.content + "\n" + mdSnippet,
-                }));
+                
+                // ── Insert at cursor position ── 
+                const textarea = textareaRef.current;
+                if (textarea) {
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    const text = formData.content;
+                    const before = text.substring(0, start);
+                    const after = text.substring(end);
+                    const newValue = before + (before.endsWith('\n') || before === '' ? '' : '\n') + mdSnippet + (after.startsWith('\n') ? '' : '\n') + after;
+                    
+                    setFormData((prev) => ({
+                        ...prev,
+                        content: newValue,
+                    }));
+                } else {
+                    // Fallback to append
+                    setFormData((prev) => ({
+                        ...prev,
+                        content: prev.content + "\n" + mdSnippet,
+                    }));
+                }
+                
                 showToast("success", `IMAGE_UPLOADED → ${json.url}`);
             } else {
                 showToast("error", `UPLOAD_FAILED: ${json.error}`);
@@ -437,6 +491,7 @@ export default function ContentEditor({
                         </div>
                         <textarea
                             id="content-editor"
+                            ref={textareaRef}
                             value={formData.content}
                             onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                             onDrop={handleEditorDrop}
@@ -458,7 +513,10 @@ export default function ContentEditor({
                                     {formData.title || "UNTITLED_ENTRY"}
                                 </h1>
                                 <div className="font-sans leading-relaxed">
-                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    <ReactMarkdown 
+                                        remarkPlugins={[remarkGfm]}
+                                        components={mdxComponents as any}
+                                    >
                                         {formData.content || "*No content detected in buffer...*"}
                                     </ReactMarkdown>
                                 </div>
@@ -625,14 +683,19 @@ export default function ContentEditor({
                                                 : "DROP IMAGE ASSET"}
                                     </span>
                                 </div>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                {initialData?.thumbnail && (
+                                {thumbnailPreview ? (
+                                    <img
+                                        src={thumbnailPreview}
+                                        alt="thumbnail-preview"
+                                        className="mt-2 w-full h-24 object-cover border border-cyber-blue shadow-[0_0_10px_rgba(0,255,255,0.2)]"
+                                    />
+                                ) : initialData?.thumbnail ? (
                                     <img
                                         src={initialData.thumbnail}
                                         alt="thumbnail"
                                         className="mt-2 w-full h-16 object-cover border border-cyber-gray/20 opacity-60"
                                     />
-                                )}
+                                ) : null}
                             </div>
 
                             {/* ── Project-specific ── */}
