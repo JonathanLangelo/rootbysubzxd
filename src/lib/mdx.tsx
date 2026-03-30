@@ -7,25 +7,42 @@ import Lightbox from "@/components/Lightbox";
 // Custom components for MDX
 const components = {
     img: (props: any) => <Lightbox {...props} />,
-    h1: (props: any) => <h1 className="text-3xl font-mono font-bold text-cyber-green mt-8 mb-4 border-b border-cyber-green/20 pb-2" {...props} />,
-    h2: (props: any) => <h2 className="text-2xl font-mono font-bold text-cyber-blue mt-8 mb-4" {...props} />,
-    h3: (props: any) => <h3 className="text-xl font-mono font-bold text-cyber-pink mt-6 mb-2" {...props} />,
-    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-4" {...props} />,
-    a: (props: any) => (
-        <a className="text-cyber-blue hover:text-cyber-green underline underline-offset-4 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />
+    h1: (props: any) => (
+        <h1 className="text-3xl font-mono font-bold text-cyber-green mt-12 mb-6 border-l-4 border-cyber-green pl-4 uppercase tracking-tighter drop-shadow-[0_0_10px_rgba(0,255,0,0.2)]" {...props} />
     ),
-    ul: (props: any) => <ul className="list-none space-y-2 mb-4 ml-4" {...props} />,
-    ol: (props: any) => <ol className="list-decimal space-y-2 mb-4 ml-6 text-gray-300 marker:text-cyber-blue" {...props} />,
+    h2: (props: any) => (
+        <h2 className="text-2xl font-mono font-bold text-cyber-blue mt-10 mb-5 border-l-4 border-cyber-blue pl-4 uppercase tracking-tighter" {...props} />
+    ),
+    h3: (props: any) => (
+        <h3 className="text-xl font-mono font-bold text-cyber-pink mt-8 mb-4 border-l-4 border-cyber-pink pl-4 uppercase tracking-tighter" {...props} />
+    ),
+    p: (props: any) => <p className="text-gray-300 leading-relaxed mb-6 font-sans text-base tracking-wide" {...props} />,
+    a: (props: any) => (
+        <a className="text-cyber-blue hover:text-cyber-green underline underline-offset-4 decoration-cyber-blue/30 hover:decoration-cyber-green/50 transition-all duration-300" target="_blank" rel="noopener noreferrer" {...props} />
+    ),
+    ul: (props: any) => <ul className="list-none space-y-3 mb-6 ml-2" {...props} />,
+    ol: (props: any) => <ol className="list-decimal space-y-3 mb-6 ml-6 text-gray-300 marker:text-cyber-blue font-mono" {...props} />,
     li: (props: any) => (
-        <li className="relative pl-6" {...props}>
-            <span className="absolute left-0 text-cyber-green">{">"}</span>
-            {props.children}
+        <li className="relative pl-6 text-gray-300" {...props}>
+            <span className="absolute left-0 text-cyber-green font-bold select-none">{">_"}</span>
+            <span className="flex-grow">{props.children}</span>
         </li>
     ),
     blockquote: (props: any) => (
-        <blockquote className="border-l-2 border-cyber-blue pl-4 my-4 text-gray-400 italic" {...props} />
+        <blockquote className="border-l-4 border-cyber-blue bg-cyber-blue/5 p-6 my-8 text-gray-400 italic font-mono text-sm leading-6 relative overflow-hidden" {...props}>
+            <div className="absolute top-0 right-0 p-2 opacity-10 pointer-events-none select-none">
+                <span className="text-4xl text-cyber-blue">"</span>
+            </div>
+            {props.children}
+        </blockquote>
     ),
-    hr: () => <hr className="border-cyber-gray/30 my-8" />,
+    hr: () => (
+        <div className="my-12 flex items-center gap-4">
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-30"></div>
+            <div className="w-2 h-2 rotate-45 border border-cyber-blue/50 bg-cyber-black"></div>
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-cyber-gray to-transparent opacity-30"></div>
+        </div>
+    ),
 
     // ── Code handling ─────────────────────────────────────────────────────────
     // `pre` wraps fenced code blocks — strip it and let `code` handle rendering
@@ -57,14 +74,14 @@ const components = {
                 lang,
                 theme: "tokyo-night",
             });
-            return <CodeBlock html={html} code={trimmed} />;
+            return <CodeBlock html={html} code={trimmed} lang={lang.toUpperCase()} />;
         } catch {
             // Fallback if Shiki doesn't support the language
             const fallbackHtml = await codeToHtml(trimmed, {
                 lang: "text",
                 theme: "tokyo-night",
             });
-            return <CodeBlock html={fallbackHtml} code={trimmed} />;
+            return <CodeBlock html={fallbackHtml} code={trimmed} lang="TEXT" />;
         }
     },
 
